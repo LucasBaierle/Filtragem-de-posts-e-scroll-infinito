@@ -24,16 +24,24 @@ const addPostsIntoDOM = async () => {
   const posts = await getPosts()
   const postsTemplate = generetePostTemplate(posts)
 
-
   postsContainer.innerHTML += postsTemplate
+
+  updateFilter(filterInput.value.toLowerCase())
+  handleScrollToPageBottom()
+}
+const updateFilter = inputValue => {
+  const posts = document.querySelectorAll(".post")
+  posts.forEach(showPostIfMatchInputValue(inputValue))
 }
 
 const getNextPosts = () => {
   setTimeout(() => {
     page++;
     addPostsIntoDOM()
+
   }, 300)
 }
+
 const removeLoader = () => {
   setTimeout(() => {
     loaderContainer.classList.remove("show")
